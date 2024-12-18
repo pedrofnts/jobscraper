@@ -1,0 +1,12 @@
+{
+  "database": {
+    "user": "postgres",
+    "host": "localhost",
+    "name": "jobscraper",
+    "password": "postgres",
+    "port": 5432
+  },
+  "server": {
+    "port": 3000
+  }
+}
