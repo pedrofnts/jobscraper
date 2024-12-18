@@ -30,4 +30,4 @@ function getScraper(site) {
   return scraper;
 }
 
-module.exports = { getScraper };
+module.exports = { getScraper, scrapers };

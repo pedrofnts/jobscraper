@@ -24,7 +24,7 @@ async function vagasComBrScraper(jobTitle, city, state) {
     const encodedJobTitle = encodeURIComponent(jobTitle);
     const encodedCity = encodeURIComponent(city);
     const encodedState = encodeURIComponent(state);
-    const url = `https://www.vagas.com.br/vagas-de-${encodedJobTitle}-${encodedCity}-${encodedState}`;
+    const url = `https://www.vagas.com.br/vagas-de-${encodedJobTitle}-${encodedCity}-${encodedState}?ordenar_por=mais_recentes`;
 
     logger.info(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
