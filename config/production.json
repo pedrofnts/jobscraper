@@ -1,1 +1,20 @@
- 
+{
+  "database": {
+    "user": "jobscraper_user",
+    "host": "db",
+    "name": "jobscraper",
+    "password": "senha",
+    "port": 5432
+  },
+  "server": {
+    "port": 3004
+  },
+  "puppeteer": {
+    "executablePath": "/usr/bin/chromium-browser",
+    "args": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage"
+    ]
+  }
+} 
