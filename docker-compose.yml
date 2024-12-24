@@ -4,10 +4,11 @@ services:
   app:
     build: .
     ports:
-      - "${PORT}:${PORT}"
+      - "3004:3004"
     env_file: .env
     environment:
       - NODE_ENV=production
+      - PORT=3004
     depends_on:
       - db
     restart: unless-stopped
@@ -23,7 +24,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "${DB_PORT}:5432"
+      - "5433:5432"
     restart: unless-stopped
 
 volumes:
