@@ -96,8 +96,8 @@ async function bebeeScraper(jobTitle, city, state) {
           return {
             cargo,
             empresa,
-            cidade: searchCity, // Usando a cidade do payload
-            estado: searchState, // Usando o estado do payload
+            cidade: searchCity,
+            estado: searchState,
             descricao,
             url,
             origem: "Bebee.com.br",
@@ -111,7 +111,7 @@ async function bebeeScraper(jobTitle, city, state) {
       },
       city,
       state
-    ); // Passando city e state para a função evaluate
+    );
 
     logger.info(`Found ${jobs.length} jobs`);
     return jobs;

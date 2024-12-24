@@ -1,26 +1,60 @@
 const puppeteer = require("puppeteer");
 const logger = require("../utils/logger");
 
+async function retryOperation(operation, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (i === maxRetries - 1) throw error;
+      logger.warn(`Tentativa ${i + 1} falhou, tentando novamente...`);
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+    }
+  }
+}
+
+async function checkForCaptcha(page) {
+  const captcha = await page.$('[id*="captcha"]');
+  if (captcha) {
+    logger.warn("Captcha detectado!");
+    throw new Error("Captcha encontrado");
+  }
+}
+
 async function cathoScraper(jobTitle, city, state) {
   logger.info("Starting Catho scraper...");
   const browser = await puppeteer.launch({
-    headless: "true",
+    headless: true,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
+      "--disable-web-security",
+      "--disable-features=IsolateOrigins,site-per-process",
+      "--window-size=1920,1080",
     ],
+    defaultViewport: {
+      width: 1920,
+      height: 1080,
+    },
   });
 
   try {
     const page = await browser.newPage();
 
-    // Set a user agent to mimic a real browser
+    await page.setRequestInterception(true);
+    page.on("request", (request) => {
+      if (["image", "stylesheet", "font"].includes(request.resourceType())) {
+        request.abort();
+      } else {
+        request.continue();
+      }
+    });
+
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
 
-    // Construct the URL
     const encodedJobTitle = encodeURIComponent(
       jobTitle.toLowerCase().replace(/ /g, "-")
     );
@@ -31,9 +65,15 @@ async function cathoScraper(jobTitle, city, state) {
     const url = `https://www.catho.com.br/vagas/${encodedJobTitle}/${encodedCity}-${encodedState}/`;
 
     logger.info(`Navigating to ${url}`);
-    await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
 
-    // Wait for job listings to load
+    await retryOperation(async () => {
+      await page.goto(url, {
+        waitUntil: ["networkidle0", "domcontentloaded"],
+        timeout: 120000,
+      });
+      await checkForCaptcha(page);
+    });
+
     await page.waitForSelector(".search-result-custom_jobItem__OGz3a", {
       timeout: 30000,
     });
@@ -70,7 +110,6 @@ async function cathoScraper(jobTitle, city, state) {
           : "N/A";
         const url = titleElement ? titleElement.href : "N/A";
 
-        // Extract city and state from location
         const [city, state] = location.split(" - ");
 
         return {
@@ -81,7 +120,7 @@ async function cathoScraper(jobTitle, city, state) {
           descricao: description,
           url: url,
           origem: "Catho",
-          tipo: "N/A", // This information is not readily available in the provided HTML
+          tipo: "N/A",
           isHomeOffice:
             description.toLowerCase().includes("home office") ||
             description.toLowerCase().includes("remoto"),

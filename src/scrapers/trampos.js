@@ -13,17 +13,14 @@ async function tramposScraper(jobTitle, city, state) {
   const page = await browser.newPage();
   logger.info("New page created");
 
-  // Set a user agent to mimic a real browser
   await page.setUserAgent(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
   );
 
-  // Set extra HTTP headers
   await page.setExtraHTTPHeaders({
     "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
   });
 
-  // Construa a URL de busca do trampos.co
   const encodedJobTitle = encodeURIComponent(jobTitle);
   const encodedCity = encodeURIComponent(city);
   const searchUrl = `https://trampos.co/oportunidades/?lc=${encodedCity}&tr=${encodedJobTitle}`;
@@ -33,10 +30,8 @@ async function tramposScraper(jobTitle, city, state) {
     await page.goto(searchUrl, { waitUntil: "networkidle2", timeout: 60000 });
     logger.info("Page loaded");
 
-    // Wait for job listings to load
     await page.waitForSelector(".opportunity-box", { timeout: 10000 });
 
-    // Scroll to ensure all content is loaded
     await autoScroll(page);
 
     logger.info("Starting job extraction");
@@ -53,7 +48,6 @@ async function tramposScraper(jobTitle, city, state) {
     });
 
     logger.info(`Found ${jobLinks.length} job links`);
-    console.log("Job links:", jobLinks);
 
     const jobs = [];
     for (const link of jobLinks) {
@@ -83,8 +77,6 @@ async function scrapeJobDetails(browser, url, searchCity, searchState) {
 
   const jobDetails = await page.evaluate(
     ({ searchCity, searchState }) => {
-      console.log("Debug - Starting job details extraction");
-
       const getTextContent = (selector) => {
         const element = document.querySelector(selector);
         return element ? element.textContent.trim() : "N/A";
@@ -133,12 +125,10 @@ async function scrapeJobDetails(browser, url, searchCity, searchState) {
         }
       }
 
-      // Improved description extraction
       let descricao = "N/A";
       if (descriptionElement) {
         descricao = descriptionElement.innerText.trim();
       } else {
-        // Fallback: try to find any element with class containing 'description'
         const possibleDescElements = document.querySelectorAll(
           '[class*="description"]'
         );
@@ -165,8 +155,6 @@ async function scrapeJobDetails(browser, url, searchCity, searchState) {
     },
     { searchCity, searchState }
   );
-
-  console.log("Debug - Extracted job details:", jobDetails);
 
   await page.close();
   return jobDetails;

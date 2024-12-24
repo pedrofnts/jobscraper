@@ -1,0 +1,215 @@
+{"level":"info","message":"Cleanup job scheduled for midnight","timestamp":"2024-12-24T00:49:11.007Z"}
+{"level":"info","message":"Cleanup job scheduled for midnight","timestamp":"2024-12-24T00:51:09.239Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T00:51:09.242Z"}
+{"level":"info","message":"Starting Indeed scraper...","timestamp":"2024-12-24T00:52:19.307Z"}
+{"level":"info","message":"Navigating to https://br.indeed.com/jobs?q=desenvolvedor&l=s%C3%A3o%20paulo%2C%20sp&sort=date","timestamp":"2024-12-24T00:52:21.003Z"}
+{"level":"info","message":"Ensuring full page load...","timestamp":"2024-12-24T00:52:21.314Z"}
+{"level":"info","message":"Extracting job data...","timestamp":"2024-12-24T00:52:22.222Z"}
+{"level":"info","message":"Extracted 0 jobs","timestamp":"2024-12-24T00:52:22.225Z"}
+{"level":"info","message":"Scraped 0 jobs from indeed for user 123","timestamp":"2024-12-24T00:52:22.298Z"}
+{"level":"info","message":"Starting Trampos.co scraper...","timestamp":"2024-12-24T00:52:22.299Z"}
+{"level":"info","message":"Browser launched","timestamp":"2024-12-24T00:52:22.760Z"}
+{"level":"info","message":"New page created","timestamp":"2024-12-24T00:52:22.809Z"}
+{"level":"info","message":"Navigating to https://trampos.co/oportunidades/?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:22.811Z"}
+{"level":"info","message":"Page loaded","timestamp":"2024-12-24T00:52:26.893Z"}
+{"level":"info","message":"Starting job extraction","timestamp":"2024-12-24T00:52:29.217Z"}
+{"level":"info","message":"Found 10 job links","timestamp":"2024-12-24T00:52:29.221Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764356?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:29.276Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764356?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:32.151Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764327?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:32.259Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764327?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:34.676Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764471?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:34.794Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764471?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:37.169Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764405?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:37.283Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764405?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:39.847Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/758159?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:39.949Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/758159?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:42.197Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764404?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:42.279Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764404?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:44.601Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764231?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:44.715Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764231?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:47.139Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764305?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:47.249Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764305?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:49.961Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764275?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:50.067Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764275?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:52.371Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/763343?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:52.517Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/763343?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:52:54.920Z"}
+{"level":"info","message":"Extracted 10 jobs","timestamp":"2024-12-24T00:52:55.068Z"}
+{"level":"info","message":"Browser closed","timestamp":"2024-12-24T00:52:55.280Z"}
+{"level":"info","message":"Scraped 10 jobs from trampos for user 123","timestamp":"2024-12-24T00:52:55.608Z"}
+{"level":"info","message":"Starting Empregos.com.br scraper...","timestamp":"2024-12-24T00:52:55.609Z"}
+{"level":"info","message":"Browser launched","timestamp":"2024-12-24T00:52:56.670Z"}
+{"level":"info","message":"New page created","timestamp":"2024-12-24T00:52:56.738Z"}
+{"level":"info","message":"Navigating to https://www.empregos.com.br/vagas/sao%20paulo/sp/desenvolvedor","timestamp":"2024-12-24T00:52:56.741Z"}
+{"level":"info","message":"Page loaded","timestamp":"2024-12-24T00:53:03.296Z"}
+{"level":"info","message":"Starting job extraction","timestamp":"2024-12-24T00:53:07.032Z"}
+{"level":"info","message":"Extracted 11 jobs","timestamp":"2024-12-24T00:53:07.049Z"}
+{"level":"info","message":"Browser closed","timestamp":"2024-12-24T00:53:07.252Z"}
+{"level":"info","message":"Scraped 11 jobs from empregos for user 123","timestamp":"2024-12-24T00:53:07.351Z"}
+{"level":"info","message":"Starting Vagas.com.br scraper...","timestamp":"2024-12-24T00:53:07.352Z"}
+{"level":"info","message":"Navigating to https://www.vagas.com.br/vagas-de-desenvolvedor-s%C3%A3o%20paulo-sp?ordenar_por=mais_recentes","timestamp":"2024-12-24T00:53:08.281Z"}
+{"level":"info","message":"Found 9 jobs","timestamp":"2024-12-24T00:53:19.178Z"}
+{"level":"info","message":"Scraped 9 jobs from vagas for user 123","timestamp":"2024-12-24T00:53:19.439Z"}
+{"level":"info","message":"Starting InfoJobs scraper...","timestamp":"2024-12-24T00:53:19.440Z"}
+{"level":"info","message":"Navigating to https://www.infojobs.com.br/empregos.aspx?palabra=desenvolvedor&poblacion=5211323","timestamp":"2024-12-24T00:53:21.366Z"}
+{"level":"info","message":"Found 20 jobs","timestamp":"2024-12-24T00:53:29.883Z"}
+{"level":"info","message":"Scraped 20 jobs from infojobs for user 123","timestamp":"2024-12-24T00:53:29.999Z"}
+{"level":"info","message":"Starting 99jobs scraper...","timestamp":"2024-12-24T00:53:29.999Z"}
+{"level":"info","message":"Navigating to https://99jobs.com/opportunities/filtered_search/search_opportunities?page=1&search[term]=desenvolvedor&search%5Bstate%5D=26&search%5Bcity%5D%5B%5D=s%C3%A3o%20paulo","timestamp":"2024-12-24T00:53:30.539Z"}
+{"level":"info","message":"Found 5 jobs","timestamp":"2024-12-24T00:53:38.625Z"}
+{"level":"info","message":"Scraped 5 jobs from 99jobs for user 123","timestamp":"2024-12-24T00:53:38.699Z"}
+{"level":"info","message":"Starting Catho scraper...","timestamp":"2024-12-24T00:53:38.699Z"}
+{"level":"info","message":"Navigating to https://www.catho.com.br/vagas/desenvolvedor/s%C3%A3o-paulo-sp/","timestamp":"2024-12-24T00:53:39.174Z"}
+{"level":"info","message":"Found 16 jobs","timestamp":"2024-12-24T00:53:43.541Z"}
+{"level":"info","message":"Scraped 16 jobs from gupy for user 123","timestamp":"2024-12-24T00:53:43.636Z"}
+{"level":"info","message":"Starting Catho scraper...","timestamp":"2024-12-24T00:53:43.637Z"}
+{"level":"info","message":"Navigating to https://www.catho.com.br/vagas/desenvolvedor/s%C3%A3o-paulo-sp/","timestamp":"2024-12-24T00:53:44.117Z"}
+{"level":"info","message":"Found 16 jobs","timestamp":"2024-12-24T00:53:50.026Z"}
+{"level":"info","message":"Scraped 16 jobs from catho for user 123","timestamp":"2024-12-24T00:53:50.293Z"}
+{"level":"info","message":"Starting Indeed scraper...","timestamp":"2024-12-24T00:53:50.300Z"}
+{"level":"info","message":"Navigating to https://br.indeed.com/jobs?q=desenvolvedor&l=s%C3%A3o%20paulo%2C%20sp&sort=date","timestamp":"2024-12-24T00:53:51.862Z"}
+{"level":"info","message":"Ensuring full page load...","timestamp":"2024-12-24T00:53:52.564Z"}
+{"level":"info","message":"Extracting job data...","timestamp":"2024-12-24T00:53:53.473Z"}
+{"level":"info","message":"Extracted 0 jobs","timestamp":"2024-12-24T00:53:53.474Z"}
+{"level":"info","message":"Scraped 0 jobs from indeed for user 223","timestamp":"2024-12-24T00:53:53.540Z"}
+{"level":"info","message":"Starting Trampos.co scraper...","timestamp":"2024-12-24T00:53:53.540Z"}
+{"level":"info","message":"Browser launched","timestamp":"2024-12-24T00:53:54.051Z"}
+{"level":"info","message":"New page created","timestamp":"2024-12-24T00:53:54.098Z"}
+{"level":"info","message":"Navigating to https://trampos.co/oportunidades/?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:53:54.099Z"}
+{"level":"info","message":"Page loaded","timestamp":"2024-12-24T00:53:57.546Z"}
+{"level":"info","message":"Starting job extraction","timestamp":"2024-12-24T00:53:59.867Z"}
+{"level":"info","message":"Found 10 job links","timestamp":"2024-12-24T00:53:59.876Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764356?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:53:59.984Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764356?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:03.083Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764327?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:03.231Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764327?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:05.712Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764471?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:05.792Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764471?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:08.067Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764405?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:08.163Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764405?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:10.474Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/758159?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:10.705Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/758159?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:13.088Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764404?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:13.219Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764404?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:15.512Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764231?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:15.604Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764231?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:17.895Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764305?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:18.003Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764305?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:20.388Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764275?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:20.618Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764275?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:23.210Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/763343?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:23.408Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/763343?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T00:54:25.763Z"}
+{"level":"info","message":"Extracted 10 jobs","timestamp":"2024-12-24T00:54:25.875Z"}
+{"level":"info","message":"Browser closed","timestamp":"2024-12-24T00:54:26.101Z"}
+{"level":"info","message":"Scraped 10 jobs from trampos for user 223","timestamp":"2024-12-24T00:54:26.270Z"}
+{"level":"info","message":"Starting Empregos.com.br scraper...","timestamp":"2024-12-24T00:54:26.271Z"}
+{"level":"info","message":"Browser launched","timestamp":"2024-12-24T00:54:27.324Z"}
+{"level":"info","message":"New page created","timestamp":"2024-12-24T00:54:27.372Z"}
+{"level":"info","message":"Navigating to https://www.empregos.com.br/vagas/sao%20paulo/sp/desenvolvedor","timestamp":"2024-12-24T00:54:27.376Z"}
+{"level":"info","message":"Page loaded","timestamp":"2024-12-24T00:54:33.292Z"}
+{"level":"info","message":"Starting job extraction","timestamp":"2024-12-24T00:54:37.067Z"}
+{"level":"info","message":"Extracted 11 jobs","timestamp":"2024-12-24T00:54:37.090Z"}
+{"level":"info","message":"Browser closed","timestamp":"2024-12-24T00:54:37.399Z"}
+{"level":"info","message":"Scraped 11 jobs from empregos for user 223","timestamp":"2024-12-24T00:54:37.958Z"}
+{"level":"info","message":"Starting Vagas.com.br scraper...","timestamp":"2024-12-24T00:54:37.958Z"}
+{"level":"info","message":"Navigating to https://www.vagas.com.br/vagas-de-desenvolvedor-s%C3%A3o%20paulo-sp?ordenar_por=mais_recentes","timestamp":"2024-12-24T00:54:38.874Z"}
+{"level":"info","message":"Found 9 jobs","timestamp":"2024-12-24T00:54:48.520Z"}
+{"level":"info","message":"Scraped 9 jobs from vagas for user 223","timestamp":"2024-12-24T00:54:48.780Z"}
+{"level":"info","message":"Starting InfoJobs scraper...","timestamp":"2024-12-24T00:54:48.780Z"}
+{"level":"info","message":"Navigating to https://www.infojobs.com.br/empregos.aspx?palabra=desenvolvedor&poblacion=5211323","timestamp":"2024-12-24T00:54:50.182Z"}
+{"level":"info","message":"Found 20 jobs","timestamp":"2024-12-24T00:54:54.871Z"}
+{"level":"info","message":"Scraped 20 jobs from infojobs for user 223","timestamp":"2024-12-24T00:54:54.963Z"}
+{"level":"info","message":"Starting 99jobs scraper...","timestamp":"2024-12-24T00:54:54.963Z"}
+{"level":"info","message":"Navigating to https://99jobs.com/opportunities/filtered_search/search_opportunities?page=1&search[term]=desenvolvedor&search%5Bstate%5D=26&search%5Bcity%5D%5B%5D=s%C3%A3o%20paulo","timestamp":"2024-12-24T00:54:55.440Z"}
+{"level":"info","message":"Found 5 jobs","timestamp":"2024-12-24T00:54:58.375Z"}
+{"level":"info","message":"Scraped 5 jobs from 99jobs for user 223","timestamp":"2024-12-24T00:54:58.460Z"}
+{"level":"info","message":"Starting Catho scraper...","timestamp":"2024-12-24T00:54:58.460Z"}
+{"level":"info","message":"Navigating to https://www.catho.com.br/vagas/desenvolvedor/s%C3%A3o-paulo-sp/","timestamp":"2024-12-24T00:54:58.956Z"}
+{"level":"info","message":"Found 16 jobs","timestamp":"2024-12-24T00:55:03.109Z"}
+{"level":"info","message":"Scraped 16 jobs from gupy for user 223","timestamp":"2024-12-24T00:55:03.201Z"}
+{"level":"info","message":"Starting Catho scraper...","timestamp":"2024-12-24T00:55:03.202Z"}
+{"level":"info","message":"Navigating to https://www.catho.com.br/vagas/desenvolvedor/s%C3%A3o-paulo-sp/","timestamp":"2024-12-24T00:55:03.688Z"}
+{"level":"info","message":"Found 16 jobs","timestamp":"2024-12-24T00:55:08.549Z"}
+{"level":"info","message":"Scraped 16 jobs from catho for user 223","timestamp":"2024-12-24T00:55:08.638Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T00:58:07.278Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:01:23.507Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:01:25.393Z"}
+{"level":"info","message":"Starting Indeed scraper...","timestamp":"2024-12-24T01:01:48.043Z"}
+{"level":"info","message":"Navigating to https://br.indeed.com/jobs?q=desenvolvedor&l=s%C3%A3o%20paulo%2C%20sp&sort=date","timestamp":"2024-12-24T01:01:49.753Z"}
+{"level":"info","message":"Ensuring full page load...","timestamp":"2024-12-24T01:01:50.098Z"}
+{"level":"info","message":"Extracting job data...","timestamp":"2024-12-24T01:01:51.006Z"}
+{"level":"info","message":"Extracted 0 jobs","timestamp":"2024-12-24T01:01:51.009Z"}
+{"level":"info","message":"Scraped 0 jobs from indeed for user 223","timestamp":"2024-12-24T01:01:51.090Z"}
+{"level":"info","message":"Starting Trampos.co scraper...","timestamp":"2024-12-24T01:01:51.090Z"}
+{"level":"info","message":"Browser launched","timestamp":"2024-12-24T01:01:51.538Z"}
+{"level":"info","message":"New page created","timestamp":"2024-12-24T01:01:51.564Z"}
+{"level":"info","message":"Navigating to https://trampos.co/oportunidades/?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:01:51.567Z"}
+{"level":"info","message":"Page loaded","timestamp":"2024-12-24T01:01:57.188Z"}
+{"level":"info","message":"Starting job extraction","timestamp":"2024-12-24T01:01:59.519Z"}
+{"level":"info","message":"Found 10 job links","timestamp":"2024-12-24T01:01:59.522Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764356?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:01:59.595Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764356?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:02.540Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764327?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:02.661Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764327?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:05.113Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764471?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:05.239Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764471?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:07.355Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764405?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:07.469Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764405?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:09.761Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/758159?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:09.817Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/758159?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:12.097Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764404?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:12.217Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764404?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:14.586Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764231?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:14.832Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764231?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:17.142Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764305?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:17.314Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764305?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:19.662Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/764275?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:19.794Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/764275?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:22.196Z"}
+{"level":"info","message":"Navigating to job page: https://trampos.co/oportunidades/763343?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:22.302Z"}
+{"level":"info","message":"Job page loaded: https://trampos.co/oportunidades/763343?lc=s%C3%A3o%20paulo&tr=desenvolvedor","timestamp":"2024-12-24T01:02:24.588Z"}
+{"level":"info","message":"Extracted 10 jobs","timestamp":"2024-12-24T01:02:24.634Z"}
+{"level":"info","message":"Browser closed","timestamp":"2024-12-24T01:02:24.811Z"}
+{"level":"info","message":"Scraped 10 jobs from trampos for user 223","timestamp":"2024-12-24T01:02:24.859Z"}
+{"level":"info","message":"Starting Empregos.com.br scraper...","timestamp":"2024-12-24T01:02:24.859Z"}
+{"level":"info","message":"Browser launched","timestamp":"2024-12-24T01:02:25.853Z"}
+{"level":"info","message":"New page created","timestamp":"2024-12-24T01:02:25.931Z"}
+{"level":"info","message":"Navigating to https://www.empregos.com.br/vagas/sao%20paulo/sp/desenvolvedor","timestamp":"2024-12-24T01:02:25.938Z"}
+{"level":"info","message":"Page loaded","timestamp":"2024-12-24T01:02:32.482Z"}
+{"level":"info","message":"Starting job extraction","timestamp":"2024-12-24T01:02:36.211Z"}
+{"level":"info","message":"Extracted 11 jobs","timestamp":"2024-12-24T01:02:36.231Z"}
+{"level":"info","message":"Browser closed","timestamp":"2024-12-24T01:02:36.337Z"}
+{"level":"info","message":"Scraped 11 jobs from empregos for user 223","timestamp":"2024-12-24T01:02:36.362Z"}
+{"level":"info","message":"Starting Vagas.com.br scraper...","timestamp":"2024-12-24T01:02:36.362Z"}
+{"level":"info","message":"Navigating to https://www.vagas.com.br/vagas-de-desenvolvedor-s%C3%A3o%20paulo-sp?ordenar_por=mais_recentes","timestamp":"2024-12-24T01:02:36.889Z"}
+{"level":"info","message":"Found 9 jobs","timestamp":"2024-12-24T01:02:46.494Z"}
+{"level":"info","message":"Scraped 9 jobs from vagas for user 223","timestamp":"2024-12-24T01:02:46.833Z"}
+{"level":"info","message":"Starting InfoJobs scraper...","timestamp":"2024-12-24T01:02:46.834Z"}
+{"level":"info","message":"Navigating to https://www.infojobs.com.br/empregos.aspx?palabra=desenvolvedor&poblacion=5211323","timestamp":"2024-12-24T01:02:48.006Z"}
+{"level":"info","message":"Found 20 jobs","timestamp":"2024-12-24T01:02:52.556Z"}
+{"level":"info","message":"Scraped 20 jobs from infojobs for user 223","timestamp":"2024-12-24T01:02:52.636Z"}
+{"level":"info","message":"Starting 99jobs scraper...","timestamp":"2024-12-24T01:02:52.636Z"}
+{"level":"info","message":"Navigating to https://99jobs.com/opportunities/filtered_search/search_opportunities?page=1&search[term]=desenvolvedor&search%5Bstate%5D=26&search%5Bcity%5D%5B%5D=s%C3%A3o%20paulo","timestamp":"2024-12-24T01:02:53.149Z"}
+{"level":"info","message":"Found 5 jobs","timestamp":"2024-12-24T01:02:56.550Z"}
+{"level":"info","message":"Scraped 5 jobs from 99jobs for user 223","timestamp":"2024-12-24T01:02:56.632Z"}
+{"level":"info","message":"Starting Catho scraper...","timestamp":"2024-12-24T01:02:56.633Z"}
+{"level":"info","message":"Navigating to https://www.catho.com.br/vagas/desenvolvedor/s%C3%A3o-paulo-sp/","timestamp":"2024-12-24T01:02:57.173Z"}
+{"level":"info","message":"Found 16 jobs","timestamp":"2024-12-24T01:03:00.746Z"}
+{"level":"info","message":"Scraped 16 jobs from gupy for user 223","timestamp":"2024-12-24T01:03:00.860Z"}
+{"level":"info","message":"Starting Catho scraper...","timestamp":"2024-12-24T01:03:00.861Z"}
+{"level":"info","message":"Navigating to https://www.catho.com.br/vagas/desenvolvedor/s%C3%A3o-paulo-sp/","timestamp":"2024-12-24T01:03:01.453Z"}
+{"level":"info","message":"Found 16 jobs","timestamp":"2024-12-24T01:03:06.397Z"}
+{"level":"info","message":"Scraped 16 jobs from catho for user 223","timestamp":"2024-12-24T01:03:06.523Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:04:37.845Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:04:43.169Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:04:44.018Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:04:45.275Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:09:17.519Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:11:15.427Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:11:50.453Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:12:19.208Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:12:40.426Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:13:10.300Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:13:34.429Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:13:55.078Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:14:19.767Z"}
+{"level":"info","message":"Server running on port 3004","timestamp":"2024-12-24T01:14:42.815Z"}

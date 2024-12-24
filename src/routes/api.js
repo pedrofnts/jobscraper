@@ -1,37 +1,67 @@
+// src/routes/api.js
 const express = require("express");
-const { getScraper } = require("../scraper-factory");
-const { saveJobsToDatabase } = require("../database/operations");
-
 const router = express.Router();
+const {
+  createSearch,
+  getJobsByUser,
+  markJobsAsSent,
+} = require("../database/operations");
+const { runScraper } = require("../workers/scraper");
+const validateRequest = require("../middleware/validate");
+const { searchSchema } = require("../validation/schemas");
+const { searchesCreated } = require("../monitoring/metrics");
 
+// Configurar busca para um usuário
+router.post("/searches", validateRequest(searchSchema), async (req, res) => {
+  try {
+    const { user_id, cargo, cidade, estado } = req.body;
+    
+    // Cria a busca no banco
+    const search = await createSearch({ user_id, cargo, cidade, estado });
+    
+    // Executa o scraping imediatamente para esta busca específica
+    await runScraper([search]); // Modificamos para aceitar uma busca específica
+    
+    // Incrementa métrica
+    searchesCreated.inc();
+    
+    res.json({
+      ...search,
+      message: "Busca criada e executada com sucesso"
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Obter vagas de um usuário
+router.get("/jobs/:userId", async (req, res) => {
+  try {
+    const jobs = await getJobsByUser(req.params.userId);
+    res.json(jobs);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Marcar vagas como enviadas
+router.post("/jobs/mark-sent", async (req, res) => {
+  try {
+    const { jobIds } = req.body;
+    await markJobsAsSent(jobIds);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Manter a rota manual de scraping para testes
 router.post("/scrape", async (req, res) => {
-  const { site, jobTitle, city, state } = req.body;
-  if (site) {
-    // Scrape a single site
-    try {
-      const scraper = getScraper(site);
-      const jobs = await scraper(jobTitle, city, state);
-      await saveJobsToDatabase(jobs);
-      res.json({ message: `Scraped and saved ${jobs.length} jobs from ${site}` });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  } else {
-    // Scrape all sites
-    const scrapers = require("../scraper-factory").scrapers;
-    const results = {};
-
-    for (const [siteName, scraper] of Object.entries(scrapers)) {
-      try {
-        const jobs = await scraper(jobTitle, city, state);
-        await saveJobsToDatabase(jobs);
-        results[siteName] = { status: "success", jobs: jobs.length };
-      } catch (error) {
-        results[siteName] = { status: "error", message: error.message };
-      }
-    }
-
-    res.json({ results });
+  try {
+    await runScraper();
+    res.json({ message: "Scraping completed" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

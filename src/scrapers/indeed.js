@@ -39,7 +39,6 @@ async function scrapeIndeed(jobTitle, city, state) {
           job.querySelectorAll("li.metadata div[data-testid='attribute_snippet_testid']")
         ).map((el) => el.textContent.trim());
 
-        // Processar localização (cidade e estado)
         let cidade = null;
         let estado = null;
         let tipo = null;
@@ -52,7 +51,6 @@ async function scrapeIndeed(jobTitle, city, state) {
           if (/Modelo Híbrido/i.test(localizacaoTexto)) tipo = "Modelo Híbrido";
         }
 
-        // Processar Salário
         let salario_minimo = null;
         let salario = null;
         if (salarioElement) {
@@ -65,12 +63,10 @@ async function scrapeIndeed(jobTitle, city, state) {
           salario = valores.length > 1 ? valores[1] : salario_minimo;
         }
 
-        // Descrição
         const descricao = descricaoElement
           ? descricaoElement.textContent.replace("Descrição da oferta:", "").trim()
           : null;
 
-        // Tipo de Contrato e Jornada - Verifica os termos exatos
         let tipo_contrato = null;
         let jornada = null;
         atributosElement.forEach((atributo) => {
@@ -79,17 +75,16 @@ async function scrapeIndeed(jobTitle, city, state) {
               atributo
             )
           ) {
-            tipo_contrato = atributo; // Tipo de Vaga
+            tipo_contrato = atributo;
           } else if (
             /Tempo integral|De segunda à sexta-feira|Turno de 8 horas|Turno diário|Turno de 12 horas|Turno rotativo|Dias úteis e finais de semana|Dias úteis e feriados|Turno Noturno|Turno vespertino|Apenas finais de semana/i.test(
               atributo
             )
           ) {
-            jornada = atributo; // Turno e Jornada
+            jornada = atributo;
           }
         });
 
-        // Data de Publicação
         const dataPublicacao = dataPublicacaoElement
           ? dataPublicacaoElement.textContent.replace(/Employer|Ativa há /i, "").trim()
           : null;

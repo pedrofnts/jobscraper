@@ -15,12 +15,10 @@ async function vagasComBrScraper(jobTitle, city, state) {
   try {
     const page = await browser.newPage();
 
-    // Set a user agent to mimic a real browser
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
 
-    // Construct the URL with ordenar_por=mais_recentes
     const encodedJobTitle = encodeURIComponent(jobTitle);
     const encodedCity = encodeURIComponent(city);
     const encodedState = encodeURIComponent(state);
@@ -29,7 +27,6 @@ async function vagasComBrScraper(jobTitle, city, state) {
     logger.info(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
 
-    // Wait for job listings to load
     await page.waitForSelector("li.vaga", { timeout: 30000 });
 
     const jobs = await page.evaluate(() => {
@@ -40,7 +37,7 @@ async function vagasComBrScraper(jobTitle, city, state) {
         const descriptionElement = job.querySelector("div.detalhes p");
         const locationElement = job.querySelector("span.vaga-local");
         const dateElement = job.querySelector("span.data-publicacao");
-        const levelElement = job.querySelector("span.nivelVaga"); // Captura o nível da vaga
+        const levelElement = job.querySelector("span.nivelVaga");
 
         const title = titleElement ? titleElement.textContent.trim() : "N/A";
         const company = companyElement
@@ -52,7 +49,7 @@ async function vagasComBrScraper(jobTitle, city, state) {
         const location = locationElement
           ? locationElement.textContent.trim()
           : "";
-        const level = levelElement ? levelElement.textContent.trim() : "N/A"; // Nível
+        const level = levelElement ? levelElement.textContent.trim() : "N/A";
 
         let datapublicacao = "N/A";
         if (dateElement) {
@@ -84,7 +81,7 @@ async function vagasComBrScraper(jobTitle, city, state) {
           url: titleElement ? titleElement.href : "N/A",
           origem: "Vagas.com.br",
           datapublicacao: datapublicacao !== "N/A" ? datapublicacao : null,
-          nivel: level !== "N/A" ? level : null, // Adiciona o nível
+          nivel: level !== "N/A" ? level : null,
         };
       });
     });

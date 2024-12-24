@@ -15,12 +15,10 @@ async function nineNineJobsScraper(jobTitle, city, state) {
   try {
     const page = await browser.newPage();
 
-    // Set a user agent to mimic a real browser
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
 
-    // Construct the URL
     const encodedJobTitle = encodeURIComponent(jobTitle);
     const encodedCity = encodeURIComponent(city);
     const stateCode = getStateCode(state);
@@ -29,7 +27,6 @@ async function nineNineJobsScraper(jobTitle, city, state) {
     logger.info(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
 
-    // Wait for job listings to load
     await page.waitForSelector(".opportunity-card", { timeout: 30000 });
 
     const jobs = await page.evaluate(() => {
@@ -55,7 +52,6 @@ async function nineNineJobsScraper(jobTitle, city, state) {
         const mode = modeElement ? modeElement.textContent.trim() : "N/A";
         const url = urlElement ? urlElement.href : "N/A";
 
-        // Extract city and state from location
         const [jobCity, jobState] = location
           .split(",")
           .map((item) => item.trim());
@@ -71,7 +67,7 @@ async function nineNineJobsScraper(jobTitle, city, state) {
           origem: "99jobs",
           isHomeOffice: mode.toLowerCase().includes("remoto"),
           isConfidential: company.toLowerCase().includes("confidencial"),
-          dataPublicacao: "N/A", // This information is not readily available in the provided HTML
+          dataPublicacao: "N/A",
         };
       });
     });

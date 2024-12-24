@@ -32,7 +32,7 @@ async function infoJobsScraper(jobTitle, city, state) {
   }
 
   const browser = await puppeteer.launch({
-    headless: "new", // Use o novo modo headless
+    headless: "new",
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -46,12 +46,10 @@ async function infoJobsScraper(jobTitle, city, state) {
   try {
     const page = await browser.newPage();
 
-    // Set a user agent to mimic a real browser
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
 
-    // Set viewport to a common desktop resolution
     await page.setViewport({ width: 1366, height: 768 });
 
     const encodedJobTitle = encodeURIComponent(jobTitle);
@@ -60,7 +58,6 @@ async function infoJobsScraper(jobTitle, city, state) {
     logger.info(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle0", timeout: 60000 });
 
-    // Wait for the job cards to load
     await page.waitForSelector(
       ".card.card-shadow.card-shadow-hover.text-break.mb-16.grid-row",
       { timeout: 30000 }

@@ -15,12 +15,10 @@ async function cathoScraper(jobTitle, city, state) {
   try {
     const page = await browser.newPage();
 
-    // Set a user agent to mimic a real browser
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     );
 
-    // Construct the URL
     const encodedJobTitle = encodeURIComponent(
       jobTitle.toLowerCase().replace(/ /g, "-")
     );
@@ -33,7 +31,6 @@ async function cathoScraper(jobTitle, city, state) {
     logger.info(`Navigating to ${url}`);
     await page.goto(url, { waitUntil: "networkidle2", timeout: 60000 });
 
-    // Wait for job listings to load
     await page.waitForSelector(".search-result-custom_jobItem__OGz3a", {
       timeout: 30000,
     });
@@ -70,7 +67,6 @@ async function cathoScraper(jobTitle, city, state) {
           : "N/A";
         const url = titleElement ? titleElement.href : "N/A";
 
-        // Extract city and state from location, and clean the state
         const [city, dirtyState] = location.split(" - ");
         const state = dirtyState
           ? dirtyState.replace(/\s*\([^)]*\)/, "")
@@ -84,7 +80,7 @@ async function cathoScraper(jobTitle, city, state) {
           descricao: description,
           url: url,
           origem: "Catho",
-          tipo: "N/A", // This information is not readily available in the provided HTML
+          tipo: "N/A",
           isHomeOffice:
             description.toLowerCase().includes("home office") ||
             description.toLowerCase().includes("remoto"),
