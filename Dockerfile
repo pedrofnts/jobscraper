@@ -12,18 +12,12 @@ RUN apk add --no-cache \
     ca-certificates \
     ttf-freefont \
     postgresql-client \
-    bash \
-    udev \
-    ttf-liberation \
-    fontconfig \
-    dbus \
-    xvfb
+    bash
 
 # Configurar variáveis de ambiente do Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
-    NODE_ENV=production \
-    DISPLAY=:99
+    NODE_ENV=production
 
 # Copiar arquivos de configuração primeiro
 COPY package*.json ./
@@ -42,9 +36,9 @@ COPY . .
 # Expor porta
 EXPOSE 3004
 
-# Criar script de inicialização com Xvfb
-RUN echo '#!/bin/bash\nXvfb :99 -screen 0 1024x768x16 & /docker-entrypoint-initdb.d/init-db.sh && npm start' > /start.sh && \
+# Criar script de inicialização
+RUN echo '#!/bin/bash\n/docker-entrypoint-initdb.d/init-db.sh && npm start' > /start.sh && \
     chmod +x /start.sh
 
-# Executar com Xvfb
+# Executar
 CMD ["/bin/bash", "/start.sh"] 
