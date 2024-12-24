@@ -4,7 +4,7 @@ const {
   saveJobsToDatabase,
   updateSearchLastRun,
 } = require("../database/operations");
-const { scrapers } = require("../scraper-factory");
+const scrapers = require("../scrapers");
 const logger = require("../utils/logger");
 
 async function runScraper(specificSearches = null) {
