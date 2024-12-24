@@ -1,16 +1,9 @@
-const puppeteer = require("puppeteer");
+const { createBrowser } = require('../scraper-factory');
 const logger = require("../utils/logger");
 
-async function cathoScraper(jobTitle, city, state) {
-  logger.info("Starting Catho scraper...");
-  const browser = await puppeteer.launch({
-    headless: "true",
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-    ],
-  });
+async function gupyScraper(jobTitle, city, state) {
+  logger.info("Starting Gupy scraper...");
+  const browser = await createBrowser();
 
   try {
     const page = await browser.newPage();
@@ -101,4 +94,4 @@ async function cathoScraper(jobTitle, city, state) {
   }
 }
 
-module.exports = cathoScraper;
+module.exports = gupyScraper;

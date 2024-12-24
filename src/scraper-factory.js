@@ -6,6 +6,8 @@ const infojobsScraper = require("./scrapers/infojobs");
 const nineNineJobsScraper = require("./scrapers/99jobs");
 const gupyScraper = require("./scrapers/gupy");
 const cathoScraper = require("./scrapers/catho");
+const config = require('config');
+const puppeteer = require('puppeteer');
 
 const scrapers = {
   indeed: indeedScraper,
@@ -18,6 +20,26 @@ const scrapers = {
   catho: cathoScraper,
 };
 
+const puppeteerConfig = config.get('puppeteer');
+
+async function createBrowser() {
+  return await puppeteer.launch({
+    ...puppeteerConfig,
+    headless: true,
+    args: [
+      ...puppeteerConfig.args,
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process',
+      '--disable-extensions'
+    ]
+  });
+}
+
 function getScraper(site) {
   const scraper = scrapers[site.toLowerCase()];
   if (!scraper) {
@@ -26,4 +48,4 @@ function getScraper(site) {
   return scraper;
 }
 
-module.exports = { getScraper, scrapers };
+module.exports = { getScraper, scrapers, createBrowser };

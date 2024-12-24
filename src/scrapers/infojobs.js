@@ -1,6 +1,6 @@
-const axios = require("axios");
-const puppeteer = require("puppeteer");
+const { createBrowser } = require('../scraper-factory');
 const logger = require("../utils/logger");
+const axios = require("axios");
 
 async function getLocationId(city, state) {
   try {
@@ -24,25 +24,8 @@ async function getLocationId(city, state) {
 
 async function infoJobsScraper(jobTitle, city, state) {
   logger.info("Starting InfoJobs scraper...");
-
-  const locationId = await getLocationId(city, state);
-  if (!locationId) {
-    logger.error("Failed to get location ID");
-    return [];
-  }
-
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-accelerated-2d-canvas",
-      "--disable-gpu",
-      "--window-size=1920x1080",
-    ],
-  });
-
+  const browser = await createBrowser();
+  
   try {
     const page = await browser.newPage();
 
@@ -53,6 +36,11 @@ async function infoJobsScraper(jobTitle, city, state) {
     await page.setViewport({ width: 1366, height: 768 });
 
     const encodedJobTitle = encodeURIComponent(jobTitle);
+    const locationId = await getLocationId(city, state);
+    if (!locationId) {
+      logger.error("Failed to get location ID");
+      return [];
+    }
     const url = `https://www.infojobs.com.br/empregos.aspx?palabra=${encodedJobTitle}&poblacion=${locationId}`;
 
     logger.info(`Navigating to ${url}`);
@@ -114,8 +102,6 @@ async function infoJobsScraper(jobTitle, city, state) {
   } catch (error) {
     logger.error("Error scraping InfoJobs:", error);
     return [];
-  } finally {
-    await browser.close();
   }
 }
 

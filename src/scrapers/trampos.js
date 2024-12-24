@@ -1,13 +1,9 @@
-const puppeteer = require("puppeteer");
+const { createBrowser } = require('../scraper-factory');
 const logger = require("../utils/logger");
 
 async function tramposScraper(jobTitle, city, state) {
   logger.info("Starting Trampos.co scraper...");
-  const browser = await puppeteer.launch({
-    headless: true,
-    defaultViewport: null,
-    args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const browser = await createBrowser();
   logger.info("Browser launched");
 
   const page = await browser.newPage();

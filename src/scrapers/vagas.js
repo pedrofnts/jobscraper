@@ -1,16 +1,9 @@
-const puppeteer = require("puppeteer");
+const { createBrowser } = require('../scraper-factory');
 const logger = require("../utils/logger");
 
 async function vagasComBrScraper(jobTitle, city, state) {
   logger.info("Starting Vagas.com.br scraper...");
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-    ],
-  });
+  const browser = await createBrowser();
 
   try {
     const page = await browser.newPage();

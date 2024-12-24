@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+const { createBrowser } = require('../scraper-factory');
 const logger = require("../utils/logger");
 
 async function retryOperation(operation, maxRetries = 3) {
@@ -23,21 +23,7 @@ async function checkForCaptcha(page) {
 
 async function cathoScraper(jobTitle, city, state) {
   logger.info("Starting Catho scraper...");
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-web-security",
-      "--disable-features=IsolateOrigins,site-per-process",
-      "--window-size=1920,1080",
-    ],
-    defaultViewport: {
-      width: 1920,
-      height: 1080,
-    },
-  });
+  const browser = await createBrowser();
 
   try {
     const page = await browser.newPage();

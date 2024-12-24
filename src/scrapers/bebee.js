@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+const { createBrowser } = require('../scraper-factory');
 const logger = require("../utils/logger");
 const axios = require("axios");
 
@@ -34,11 +34,7 @@ async function waitForSelector(page, selector, timeout = 30000) {
 
 async function bebeeScraper(jobTitle, city, state) {
   logger.info("Starting Bebee.com.br scraper...");
-  const browser = await puppeteer.launch({
-    headless: true,
-    defaultViewport: null,
-    args: ["--start-maximized", "--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const browser = await createBrowser();
 
   const page = await browser.newPage();
   await page.setUserAgent(
