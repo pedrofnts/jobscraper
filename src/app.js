@@ -11,6 +11,10 @@ const config = require("config");
 
 const app = express();
 
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
 app.use(express.json());
 app.use("/api", limiter);
 
