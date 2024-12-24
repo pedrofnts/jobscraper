@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Instalar dependências do Puppeteer
+# Instalar dependências do sistema
 RUN apk add --no-cache \
     chromium \
     nss \
@@ -11,7 +11,8 @@ RUN apk add --no-cache \
     harfbuzz \
     ca-certificates \
     ttf-freefont \
-    postgresql-client
+    postgresql-client \
+    bash
 
 # Configurar variáveis de ambiente do Puppeteer
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
@@ -21,6 +22,10 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 COPY package*.json ./
 COPY config ./config/
 
+# Copiar script de inicialização
+COPY scripts/init-db.sh /docker-entrypoint-initdb.d/
+RUN chmod +x /docker-entrypoint-initdb.d/init-db.sh
+
 # Instalar dependências
 RUN npm ci --only=production
 
@@ -29,4 +34,5 @@ COPY . .
 
 EXPOSE 3004
 
-CMD ["npm", "start"] 
+# Executar script de inicialização e depois a aplicação
+CMD ["/bin/bash", "-c", "/docker-entrypoint-initdb.d/init-db.sh && npm start"] 
