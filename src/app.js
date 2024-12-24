@@ -37,6 +37,6 @@ app.use((error, req, res, next) => {
 scheduleCleanup();
 
 const PORT = config.get("server.port") || 3004;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   logger.info(`Server running on port ${PORT}`);
 });
