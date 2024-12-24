@@ -65,4 +65,9 @@ router.post("/scrape", async (req, res) => {
   }
 });
 
+// Rota de health check
+router.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 module.exports = router;
