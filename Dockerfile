@@ -27,23 +27,14 @@ COPY config ./config/
 # Instalar dependências
 RUN npm install
 
-# Copiar script de inicialização
-COPY scripts/init-db.sh /docker-entrypoint-initdb.d/
-RUN chmod +x /docker-entrypoint-initdb.d/init-db.sh
-
 # Copiar código fonte
 COPY . .
+
+# Tornar script executável
+RUN chmod +x scripts/init-db.sh
 
 # Expor porta
 EXPOSE 3004
 
-# Criar script de inicialização
-RUN echo '#!/bin/bash\n\
-echo "Aguardando PostgreSQL..."\n\
-sleep 10\n\
-/docker-entrypoint-initdb.d/init-db.sh\n\
-echo "Iniciando aplicação..."\n\
-exec npm start' > /start.sh && chmod +x /start.sh
-
-# Executar
-CMD ["/bin/bash", "/start.sh"] 
+# Executar diretamente o script de inicialização
+CMD ["./scripts/init-db.sh"] 
