@@ -43,8 +43,8 @@ COPY . .
 EXPOSE 3004
 
 # Criar script de inicialização com Xvfb
-RUN echo '#!/bin/sh\nXvfb :99 -screen 0 1024x768x16 & /docker-entrypoint-initdb.d/init-db.sh && npm start' > /start.sh && \
+RUN echo '#!/bin/bash\nXvfb :99 -screen 0 1024x768x16 & /docker-entrypoint-initdb.d/init-db.sh && npm start' > /start.sh && \
     chmod +x /start.sh
 
 # Executar com Xvfb
-CMD ["/start.sh"] 
+CMD ["/bin/bash", "/start.sh"] 
