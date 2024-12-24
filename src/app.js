@@ -9,6 +9,7 @@ const { scheduleCleanup } = require("./workers/cleanup");
 const apiRoutes = require("./routes/api");
 const config = require("config");
 const timeout = require('connect-timeout');
+const { pool } = require("./database/connection");
 
 const app = express();
 

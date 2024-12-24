@@ -8,6 +8,7 @@ services:
     env_file: .env
     environment:
       - NODE_ENV=production
+      - DB_HOST=db
     depends_on:
       - db
     restart: unless-stopped
