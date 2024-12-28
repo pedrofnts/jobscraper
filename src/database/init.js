@@ -49,7 +49,8 @@ const createTables = async () => {
         user_id INTEGER REFERENCES users(id),
         status VARCHAR(50) DEFAULT 'new',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT vagas_url_user_id_key UNIQUE (url, user_id)
       );
     `);
 

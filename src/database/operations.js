@@ -1,5 +1,6 @@
 const pool = require("./config");
 
+
 async function createSearch(search) {
   const { user_id, cargo, cidade, estado } = search;
   const query = `
@@ -45,7 +46,6 @@ async function markJobsAsSent(jobIds) {
   await pool.query(query, [jobIds]);
 }
 
-// Modificar a função existente para incluir user_id
 async function saveJobsToDatabase(jobs, userId) {
   const client = await pool.connect();
   try {
@@ -53,34 +53,61 @@ async function saveJobsToDatabase(jobs, userId) {
     for (const job of jobs) {
       const query = `
         INSERT INTO vagas (
-          cargo, cidade, estado, empresa, descricao, url, origem, 
-          salario_minimo, salario, tipo_contrato, jornada, datapublicacao, 
-          nivel, tipo, user_id, status
+          cargo,
+          empresa,
+          cidade,
+          estado,
+          descricao,
+          url,
+          origem,
+          tipo,
+          is_home_office,
+          is_confidential,
+          data_publicacao,
+          salario_minimo,
+          salario_maximo,
+          nivel,
+          user_id,
+          status,
+          created_at,
+          updated_at
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, 'new')
-        ON CONFLICT (url) DO UPDATE SET
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        ON CONFLICT (url, user_id) DO UPDATE SET
           cargo = EXCLUDED.cargo,
           empresa = EXCLUDED.empresa,
-          /* ... outros campos ... */
+          cidade = EXCLUDED.cidade,
+          estado = EXCLUDED.estado,
+          descricao = EXCLUDED.descricao,
+          origem = EXCLUDED.origem,
+          tipo = EXCLUDED.tipo,
+          is_home_office = EXCLUDED.is_home_office,
+          is_confidential = EXCLUDED.is_confidential,
+          data_publicacao = EXCLUDED.data_publicacao,
+          salario_minimo = EXCLUDED.salario_minimo,
+          salario_maximo = EXCLUDED.salario_maximo,
+          nivel = EXCLUDED.nivel,
+          status = EXCLUDED.status,
           updated_at = CURRENT_TIMESTAMP
       `;
 
       const values = [
         job.cargo,
-        job.cidade,
-        job.estado,
-        job.empresa,
-        job.descricao,
+        job.empresa || null,
+        job.cidade || null,
+        job.estado || null,
+        job.descricao || null,
         job.url,
-        job.origem,
-        job.salario_minimo || null, // Novo campo: Salário mínimo
-        job.salario || null, // Salário máximo
-        job.tipo_contrato || null, // Tipo de contrato
-        job.jornada || null, // Novo campo: Jornada de trabalho
-        job.datapublicacao || null, // Data de publicação
-        job.nivel || null, // Nível da vaga
-        job.tipo || null, // Novo campo: Tipo
+        job.origem || null,
+        job.tipo || null,
+        job.is_home_office || false,
+        job.is_confidential || false,
+        job.data_publicacao || null,
+        job.salario_minimo || null,
+        job.salario_maximo || null,
+        job.nivel || null,
         userId,
+        'new'
       ];
 
       await client.query(query, values);
@@ -93,6 +120,7 @@ async function saveJobsToDatabase(jobs, userId) {
     client.release();
   }
 }
+
 
 module.exports = {
   createSearch,

@@ -6,7 +6,7 @@ const {
   getJobsByUser,
   markJobsAsSent,
 } = require("../database/operations");
-const { runScraper } = require("../workers/scraper");
+const { runScraper, runSpecificScraper } = require("../workers/scraper");
 const validateRequest = require("../middleware/validate");
 const { searchSchema } = require("../validation/schemas");
 const { searchesCreated } = require("../monitoring/metrics");
@@ -60,6 +60,25 @@ router.post("/scrape", async (req, res) => {
   try {
     await runScraper();
     res.json({ message: "Scraping completed" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Rota para executar um scraper específico
+router.post("/scrape/:scraper", async (req, res) => {
+  try {
+    const { scraper } = req.params;
+    const supportedScrapers = ['vagas', 'indeed', 'infojobs', 'trampos', 'gupy', 'catho', 'linkedin', 'glassdoor'];
+    
+    if (!supportedScrapers.includes(scraper.toLowerCase())) {
+      return res.status(400).json({ 
+        error: `Scraper inválido. Scrapers suportados: ${supportedScrapers.join(', ')}` 
+      });
+    }
+
+    await runSpecificScraper(scraper);
+    res.json({ message: `Scraping completed for ${scraper}` });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
