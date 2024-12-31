@@ -7,8 +7,7 @@ const nineNineJobsScraper = require("./99jobs");
 const gupyScraper = require("./gupy");
 const cathoScraper = require("./catho");
 const linkedinScraper = require("./linkedin");
-const glassdoorScraper = require("./glassdoor");
-
+// const glassdoorScraper = require("./glassdoor");
 
 const scrapers = {
   indeed: indeedScraper,
@@ -20,7 +19,7 @@ const scrapers = {
   gupy: gupyScraper,
   catho: cathoScraper,
   linkedin: linkedinScraper,
-  glassdoor: glassdoorScraper
+  // glassdoor: glassdoorScraper
 };
 
 module.exports = scrapers;
