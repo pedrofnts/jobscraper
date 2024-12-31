@@ -29,7 +29,7 @@ async function initDatabase() {
         cargo VARCHAR(200) NOT NULL,
         empresa VARCHAR(200),
         cidade VARCHAR(100),
-        estado CHAR(2),
+        estado VARCHAR(2),
         descricao TEXT,
         url TEXT NOT NULL UNIQUE,
         origem VARCHAR(50) NOT NULL,

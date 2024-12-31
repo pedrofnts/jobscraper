@@ -42,13 +42,32 @@ class WhatsAppService {
   }
 
   async sendSearchConfirmation(userId, remoteJid, searchDetails) {
-    const message =
-      `🔍 *Nova busca configurada!*\n\n` +
-      `Estou buscando vagas com os seguintes critérios:\n` +
-      `📋 Cargo: ${searchDetails.cargo}\n` +
-      `📍 Cidade: ${searchDetails.cidade}\n` +
-      `🏠 Estado: ${searchDetails.estado}\n\n` +
-      `Enviarei as vagas encontradas a cada 3 horas, entre 9h e 20h. Fique atento! 😊`;
+    let message;
+
+    if (searchDetails.isFirstSearch) {
+      message =
+        `🎉 *Bem-vindo ao EmpregoZAP!*\n\n` +
+        `Olá! Sou seu assistente de busca de empregos. Vou te ajudar a encontrar as melhores oportunidades de trabalho.\n\n` +
+        `🔍 *Sua busca foi configurada com sucesso!*\n\n` +
+        `Estou buscando vagas com os seguintes critérios:\n` +
+        `📋 Cargo: ${searchDetails.cargo}\n` +
+        `📍 Cidade: ${searchDetails.cidade}\n` +
+        `🏠 Estado: ${searchDetails.estado}\n\n` +
+        `⏳ Aguarde enquanto faço a primeira busca. Em breve você receberá as vagas mais relevantes!\n\n` +
+        `💡 *Dicas:*\n` +
+        `• Você receberá novas vagas assim que elas forem encontradas\n` +
+        `• As vagas são enviadas em ordem de relevância\n` +
+        `• Para alterar sua busca, basta configurar novamente com os novos critérios\n\n` +
+        `Boa sorte! 🍀`;
+    } else {
+      message =
+        `🔄 *Busca atualizada com sucesso!*\n\n` +
+        `Seus novos critérios de busca são:\n` +
+        `📋 Cargo: ${searchDetails.cargo}\n` +
+        `📍 Cidade: ${searchDetails.cidade}\n` +
+        `🏠 Estado: ${searchDetails.estado}\n\n` +
+        `⏳ Estou procurando novas vagas com esses critérios. Em breve você receberá as atualizações!`;
+    }
 
     return this.sendMessage(remoteJid, message);
   }

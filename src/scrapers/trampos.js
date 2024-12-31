@@ -1,4 +1,4 @@
-const { createBrowser } = require('../scraper-factory');
+const { createBrowser } = require("../scraper-factory");
 const logger = require("../utils/logger");
 
 async function tramposScraper(jobTitle, city, state) {
@@ -117,7 +117,7 @@ async function scrapeJobDetails(browser, url, searchCity, searchState) {
         ) {
           isHomeOffice = true;
           cidade = "Home office";
-          estado = "N/A";
+          estado = "BR";
         }
       }
 

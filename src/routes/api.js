@@ -75,16 +75,20 @@ router.post("/searches", validateRequest(searchSchema), async (req, res) => {
         whatsapp,
       });
 
-      // Envia confirmação por WhatsApp para nova busca
+      // Envia mensagem de boas-vindas para nova busca
       try {
         await whatsappService.sendSearchConfirmation(user_id, whatsapp, {
           cargo,
           cidade,
           estado,
+          isFirstSearch: true,
         });
-        logger.info("Confirmação enviada por WhatsApp");
+        logger.info("Mensagem de boas-vindas enviada por WhatsApp");
       } catch (error) {
-        logger.error("Erro ao enviar confirmação por WhatsApp:", error);
+        logger.error(
+          "Erro ao enviar mensagem de boas-vindas por WhatsApp:",
+          error
+        );
       }
     }
 
