@@ -29,7 +29,7 @@ async function initDatabase() {
         cargo VARCHAR(200) NOT NULL,
         empresa VARCHAR(200),
         cidade VARCHAR(100),
-        estado VARCHAR(2),
+        estado CHAR(2),
         descricao TEXT,
         url TEXT NOT NULL UNIQUE,
         origem VARCHAR(50) NOT NULL,
@@ -79,3 +79,17 @@ async function initDatabase() {
 module.exports = {
   initDatabase,
 };
+
+if (require.main === module) {
+  (async () => {
+    try {
+      logger.info("Iniciando criação do banco de dados...");
+      await initDatabase();
+      logger.info("Banco de dados inicializado com sucesso");
+      process.exit(0);
+    } catch (error) {
+      logger.error("Erro ao inicializar banco de dados:", error);
+      process.exit(1);
+    }
+  })();
+}
