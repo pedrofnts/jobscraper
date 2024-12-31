@@ -14,7 +14,8 @@
     "docker:logs": "docker-compose logs -f",
     "docker:restart": "docker-compose restart",
     "init-db": "node src/database/init.js",
-    "test:scraper": "node src/utils/test-scraper.js"
+    "test:scraper": "node src/utils/test-scraper.js",
+    "migrate": "node scripts/migrate.js"
   },
   "keywords": [],
   "author": "",

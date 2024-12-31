@@ -1,38 +1,37 @@
-const pool = require("../database/config");
 const logger = require("../utils/logger");
-const cron = require("node-cron");
+const { pool } = require("../database/connection");
 
-async function cleanOldJobs() {
+async function cleanupOldJobs() {
   const client = await pool.connect();
   try {
-    const query = `
-            DELETE FROM vagas 
-            WHERE created_at < NOW() - INTERVAL '30 days'
-            RETURNING id
-        `;
-    const result = await client.query(query);
-    logger.info(`Cleaned ${result.rowCount} old jobs`);
-    return result.rowCount;
+    // Remove vagas mais antigas que 30 dias
+    const result = await client.query(`
+      DELETE FROM jobs
+      WHERE created_at < NOW() - INTERVAL '30 days'
+    `);
+
+    logger.info(`Removidas ${result.rowCount} vagas antigas`);
   } catch (error) {
-    logger.error("Error cleaning old jobs:", error);
-    throw error;
+    logger.error("Erro ao limpar vagas antigas:", error);
   } finally {
     client.release();
   }
 }
 
-function scheduleCleanup() {
-  cron.schedule("0 0 * * *", async () => {
-    try {
-      const deletedCount = await cleanOldJobs();
-      logger.info(`Scheduled cleanup completed. Deleted ${deletedCount} jobs`);
-    } catch (error) {
-      logger.error("Scheduled cleanup failed:", error);
-    }
-  });
+// Executa a cada 24 horas
+const INTERVAL = 24 * 60 * 60 * 1000;
+
+function startWorker() {
+  // Executa imediatamente na primeira vez
+  cleanupOldJobs();
+
+  // Agenda as próximas execuções
+  setInterval(cleanupOldJobs, INTERVAL);
+
+  logger.info("Worker de limpeza iniciado");
 }
 
 module.exports = {
-  cleanOldJobs,
-  scheduleCleanup,
+  cleanupOldJobs,
+  startWorker,
 };

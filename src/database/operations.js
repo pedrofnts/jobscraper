@@ -1,14 +1,19 @@
 const pool = require("./config");
 
-
 async function createSearch(search) {
-  const { user_id, cargo, cidade, estado } = search;
+  const { user_id, cargo, cidade, estado, whatsapp } = search;
   const query = `
-    INSERT INTO searches (user_id, cargo, cidade, estado)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO searches (user_id, cargo, cidade, estado, whatsapp)
+    VALUES ($1, $2, $3, $4, $5)
     RETURNING *
   `;
-  const result = await pool.query(query, [user_id, cargo, cidade, estado]);
+  const result = await pool.query(query, [
+    user_id,
+    cargo,
+    cidade,
+    estado,
+    whatsapp,
+  ]);
   return result.rows[0];
 }
 
@@ -29,30 +34,26 @@ async function updateSearchLastRun(searchId) {
 
 async function getJobsByUser(userId) {
   const query = `
-    SELECT * FROM vagas 
-    WHERE user_id = $1 AND status = 'new'
-    ORDER BY created_at DESC
+    SELECT j.* 
+    FROM jobs j
+    JOIN user_jobs uj ON j.id = uj.job_id
+    WHERE uj.user_id = $1 
+    AND uj.sent_at IS NULL
+    ORDER BY j.created_at DESC
   `;
   const result = await pool.query(query, [userId]);
   return result.rows;
-}
-
-async function markJobsAsSent(jobIds) {
-  const query = `
-    UPDATE vagas 
-    SET status = 'sent' 
-    WHERE id = ANY($1)
-  `;
-  await pool.query(query, [jobIds]);
 }
 
 async function saveJobsToDatabase(jobs, userId) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
+
     for (const job of jobs) {
-      const query = `
-        INSERT INTO vagas (
+      // Primeiro, insere ou atualiza na tabela jobs
+      const jobQuery = `
+        INSERT INTO jobs (
           cargo,
           empresa,
           cidade,
@@ -67,13 +68,10 @@ async function saveJobsToDatabase(jobs, userId) {
           salario_minimo,
           salario_maximo,
           nivel,
-          user_id,
-          status,
-          created_at,
-          updated_at
+          created_at
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-        ON CONFLICT (url, user_id) DO UPDATE SET
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, CURRENT_TIMESTAMP)
+        ON CONFLICT (url) DO UPDATE SET
           cargo = EXCLUDED.cargo,
           empresa = EXCLUDED.empresa,
           cidade = EXCLUDED.cidade,
@@ -86,12 +84,11 @@ async function saveJobsToDatabase(jobs, userId) {
           data_publicacao = EXCLUDED.data_publicacao,
           salario_minimo = EXCLUDED.salario_minimo,
           salario_maximo = EXCLUDED.salario_maximo,
-          nivel = EXCLUDED.nivel,
-          status = EXCLUDED.status,
-          updated_at = CURRENT_TIMESTAMP
+          nivel = EXCLUDED.nivel
+        RETURNING id
       `;
 
-      const values = [
+      const jobValues = [
         job.cargo,
         job.empresa || null,
         job.cidade || null,
@@ -106,12 +103,21 @@ async function saveJobsToDatabase(jobs, userId) {
         job.salario_minimo || null,
         job.salario_maximo || null,
         job.nivel || null,
-        userId,
-        'new'
       ];
 
-      await client.query(query, values);
+      const jobResult = await client.query(jobQuery, jobValues);
+      const jobId = jobResult.rows[0].id;
+
+      // Depois, cria a relação na tabela user_jobs
+      const userJobQuery = `
+        INSERT INTO user_jobs (user_id, job_id, created_at)
+        VALUES ($1, $2, CURRENT_TIMESTAMP)
+        ON CONFLICT (user_id, job_id) DO NOTHING
+      `;
+
+      await client.query(userJobQuery, [userId, jobId]);
     }
+
     await client.query("COMMIT");
   } catch (error) {
     await client.query("ROLLBACK");
@@ -121,6 +127,108 @@ async function saveJobsToDatabase(jobs, userId) {
   }
 }
 
+async function updateSearchStatus(searchId, status) {
+  const query = `
+    UPDATE searches 
+    SET status = $1, 
+        updated_at = CURRENT_TIMESTAMP 
+    WHERE id = $2
+  `;
+  await pool.query(query, [status, searchId]);
+}
+
+async function getUnsentJobs(userId) {
+  const client = await pool.connect();
+  try {
+    const result = await client.query(
+      `SELECT j.* 
+       FROM jobs j
+       JOIN user_jobs uj ON j.id = uj.job_id
+       WHERE uj.user_id = $1 
+       AND uj.sent_at IS NULL
+       ORDER BY j.data_publicacao DESC`,
+      [userId]
+    );
+    return result.rows;
+  } finally {
+    client.release();
+  }
+}
+
+async function markJobsAsSent(jobIds, userId) {
+  const client = await pool.connect();
+  try {
+    await client.query(
+      `UPDATE user_jobs 
+       SET sent_at = NOW() 
+       WHERE job_id = ANY($1) 
+       AND user_id = $2`,
+      [jobIds, userId]
+    );
+  } finally {
+    client.release();
+  }
+}
+
+async function getUnsentJobsPrioritized(userId, limit = 5) {
+  const client = await pool.connect();
+  try {
+    const result = await client.query(
+      `SELECT j.* 
+       FROM jobs j
+       JOIN user_jobs uj ON j.id = uj.job_id
+       WHERE uj.user_id = $1 
+       AND uj.sent_at IS NULL
+       ORDER BY 
+         -- Prioriza vagas com mais informações
+         (CASE WHEN j.salario_minimo IS NOT NULL THEN 1 ELSE 0 END +
+          CASE WHEN j.nivel IS NOT NULL THEN 1 ELSE 0 END +
+          CASE WHEN j.tipo IS NOT NULL THEN 1 ELSE 0 END +
+          CASE WHEN j.descricao IS NOT NULL THEN 1 ELSE 0 END) DESC,
+         -- Depois por data de publicação
+         j.data_publicacao DESC
+       LIMIT $2`,
+      [userId, limit]
+    );
+    return result.rows;
+  } finally {
+    client.release();
+  }
+}
+
+async function findExistingSearch(userId) {
+  const query = `
+    SELECT * FROM searches 
+    WHERE user_id = $1 
+    ORDER BY created_at DESC 
+    LIMIT 1
+  `;
+  const result = await pool.query(query, [userId]);
+  return result.rows[0] || null;
+}
+
+async function updateExistingSearch(searchId, search) {
+  const { cargo, cidade, estado, whatsapp } = search;
+  const query = `
+    UPDATE searches 
+    SET cargo = $1,
+        cidade = $2,
+        estado = $3,
+        whatsapp = $4,
+        status = 'pending',
+        updated_at = CURRENT_TIMESTAMP
+    WHERE id = $5
+    RETURNING *
+  `;
+  const result = await pool.query(query, [
+    cargo,
+    cidade,
+    estado,
+    whatsapp,
+    searchId,
+  ]);
+  return result.rows[0];
+}
 
 module.exports = {
   createSearch,
@@ -129,4 +237,9 @@ module.exports = {
   getJobsByUser,
   markJobsAsSent,
   saveJobsToDatabase,
+  updateSearchStatus,
+  getUnsentJobs,
+  getUnsentJobsPrioritized,
+  findExistingSearch,
+  updateExistingSearch,
 };

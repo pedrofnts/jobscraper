@@ -1,5 +1,5 @@
 // infojobs-scraper.js
-const { createBrowser } = require('../scraper-factory');
+const { createBrowser } = require("../scraper-factory");
 const logger = require("../utils/logger");
 const axios = require("axios");
 
@@ -87,7 +87,9 @@ async function infoJobsScraper(jobTitle, city, state) {
             // Se não existir link, buscamos o texto do .text-body
             const textBodyElement = job.querySelector(".text-body");
             if (textBodyElement) {
-              const textBodyText = textBodyElement.textContent.trim().toLowerCase();
+              const textBodyText = textBodyElement.textContent
+                .trim()
+                .toLowerCase();
 
               // Se contém a palavra "confidencial"
               if (textBodyText.includes("confidencial")) {
@@ -143,7 +145,9 @@ async function infoJobsScraper(jobTitle, city, state) {
                 salaryMatch[1].replace(/\./g, "").replace(",", ".")
               );
               salarioMaximo = salaryMatch[2]
-                ? parseFloat(salaryMatch[2].replace(/\./g, "").replace(",", "."))
+                ? parseFloat(
+                    salaryMatch[2].replace(/\./g, "").replace(",", ".")
+                  )
                 : salarioMinimo;
             }
           }
@@ -151,7 +155,9 @@ async function infoJobsScraper(jobTitle, city, state) {
           // ----- TIPO DE TRABALHO -----
           // Normalmente está em ".mr-16 + .mr-16"
           const jobTypeElement = job.querySelector(".mr-16 + .mr-16");
-          const tipo = jobTypeElement ? jobTypeElement.textContent.trim() : null;
+          const tipo = jobTypeElement
+            ? jobTypeElement.textContent.trim()
+            : null;
 
           // ----- NÍVEL -----
           // Normalmente em ".mr-16 + .mr-16 + .mr-16"
@@ -163,7 +169,9 @@ async function infoJobsScraper(jobTitle, city, state) {
           // Se não estiver lá, verificar na descrição as palavras "home office" ou "remoto"
           const homeOfficeElement = job.querySelector(".text-medium.caption");
           const isHomeOffice = homeOfficeElement
-            ? homeOfficeElement.textContent.toLowerCase().includes("home office")
+            ? homeOfficeElement.textContent
+                .toLowerCase()
+                .includes("home office")
             : descricao
             ? descricao.toLowerCase().includes("home office") ||
               descricao.toLowerCase().includes("remoto")
@@ -174,24 +182,25 @@ async function infoJobsScraper(jobTitle, city, state) {
           let url = null;
           const urlElement = job.querySelector("a.text-decoration-none");
           if (urlElement) {
-            url = "https://www.infojobs.com.br" + urlElement.getAttribute("href");
+            url =
+              "https://www.infojobs.com.br" + urlElement.getAttribute("href");
           }
 
           return {
-            cargo,
+            cargo: cargo,
             empresa: companyName,
-            cidade: searchCity,
-            estado: searchState,
-            descricao,
-            url,
+            cidade: city,
+            estado: state,
+            descricao: descricao,
+            url: url,
             origem: "InfoJobs",
-            tipo,
+            tipo: tipo,
             is_home_office: isHomeOffice,
             is_confidential: isConfidential,
             data_publicacao: dataPublicacao,
             salario_minimo: salarioMinimo,
             salario_maximo: salarioMaximo,
-            nivel,
+            nivel: nivel,
           };
         });
       },

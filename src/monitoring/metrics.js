@@ -19,8 +19,27 @@ const searchesCreated = new prometheus.Counter({
   help: "Total de buscas criadas",
 });
 
+const dailyScrapingSuccess = new prometheus.Counter({
+  name: "daily_scraping_success_total",
+  help: "Total de scraping diários bem sucedidos",
+});
+
+const dailyScrapingError = new prometheus.Counter({
+  name: "daily_scraping_error_total",
+  help: "Total de erros em scraping diários",
+});
+
+const webhookCounter = new prometheus.Counter({
+  name: "webhook_calls_total",
+  help: "Total de chamadas ao webhook",
+  labelNames: ["status"],
+});
+
 module.exports = {
   scrapeCounter,
   scrapeErrors,
   searchesCreated,
+  dailyScrapingSuccess,
+  dailyScrapingError,
+  webhookCounter,
 };
