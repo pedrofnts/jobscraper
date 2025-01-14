@@ -98,20 +98,24 @@ async function vagasComBrScraper(jobTitle, city, state) {
             }
           }
 
+          // ----- URL -----
+          let jobUrl = null;
+          if (titleElement && titleElement.href) {
+            jobUrl = titleElement.href;
+          }
+
           return {
             cargo: title,
             empresa: company,
             cidade: jobCity,
             estado: jobState,
             descricao: description,
-            url: url,
+            url: jobUrl,
             origem: "Vagas.com.br",
             tipo: null,
             is_home_office: description.toLowerCase().includes("home office"),
             is_confidential: company.toLowerCase().includes("confidencial"),
-            data_publicacao: dateElement
-              ? formatDate(dateElement.textContent.trim())
-              : null,
+            data_publicacao: data_publicacao,
             salario_minimo: null,
             salario_maximo: null,
             nivel: level,

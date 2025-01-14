@@ -189,8 +189,8 @@ async function infoJobsScraper(jobTitle, city, state) {
           return {
             cargo: cargo,
             empresa: companyName,
-            cidade: city,
-            estado: state,
+            cidade: searchCity,
+            estado: searchState,
             descricao: descricao,
             url: url,
             origem: "InfoJobs",
