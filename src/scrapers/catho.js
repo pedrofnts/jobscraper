@@ -1,4 +1,4 @@
-const { createBrowser } = require('../scraper-factory');
+const { createBrowser } = require("../scraper-factory");
 const logger = require("../utils/logger");
 
 async function retryOperation(operation, maxRetries = 3) {
@@ -35,13 +35,13 @@ function parseSalary(salaryText) {
   // Remove pontos e troca vírgula por ponto
   // "De R$ 6.001,00 a R$ 7.000,00" => "De R$ 6001.00 a R$ 7000.00"
   const cleanText = salaryText
-    .replace(/\./g, '')
-    .replace(',', '.')
+    .replace(/\./g, "")
+    .replace(",", ".")
     .trim()
     .toLowerCase();
 
   // A combinar
-  if (cleanText.includes('a combinar')) {
+  if (cleanText.includes("a combinar")) {
     return [null, null];
   }
 
@@ -87,11 +87,11 @@ function parseDate(dateText) {
 
   const dateRegex = /(atualizada em|publicada em)\s+(\d{1,2})\/(\d{1,2})/i;
   const match = lowerText.match(dateRegex);
-  
+
   if (match) {
     const day = parseInt(match[2], 10);
     const month = parseInt(match[3], 10) - 1; // JS months are 0-based
-    
+
     // Validate day and month
     if (month >= 0 && month < 12 && day > 0 && day <= 31) {
       const date = new Date(currYear, month, day);
@@ -99,15 +99,15 @@ function parseDate(dateText) {
       if (date > today) {
         date.setFullYear(currYear - 1);
       }
-      return date.toISOString().split('T')[0];
+      return date.toISOString().split("T")[0];
     }
   }
 
-  if (lowerText.includes('hoje')) return today.toISOString().split('T')[0];
-  if (lowerText.includes('ontem')) {
+  if (lowerText.includes("hoje")) return today.toISOString().split("T")[0];
+  if (lowerText.includes("ontem")) {
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
-    return yesterday.toISOString().split('T')[0];
+    return yesterday.toISOString().split("T")[0];
   }
 
   return null;
@@ -162,60 +162,65 @@ async function cathoScraper(jobTitle, city, state) {
     });
 
     // Avalia o DOM e extrai as informações
-    const jobs = await page.evaluate(() => {
-      const jobElements = document.querySelectorAll(
-        ".search-result-custom_jobItem__OGz3a"
-      );
+    const jobs = await page.evaluate(
+      ({ searchCity, searchState }) => {
+        const jobElements = document.querySelectorAll(
+          ".search-result-custom_jobItem__OGz3a"
+        );
 
-      return Array.from(jobElements).map((job) => {
-        const titleElement = job.querySelector(".Title-module__title___3S2cv a");
-        const companyElement = job.querySelector(".sc-sLsrZ");
-        const salaryElement = job.querySelector(".custom-styled_salaryText__oSvPo");
-        const locationElement = job.querySelector(".sc-lbJcrp a");
-        const dateElement = job.querySelector(".custom-styled_cardJobTime__ZvAIb span");
-        const descriptionElement = job.querySelector(".job-description");
+        return Array.from(jobElements).map((job) => {
+          const titleElement = job.querySelector(
+            ".Title-module__title___3S2cv a"
+          );
+          const companyElement = job.querySelector(".sc-sLsrZ");
+          const salaryElement = job.querySelector(
+            ".custom-styled_salaryText__oSvPo"
+          );
+          const locationElement = job.querySelector(".sc-lbJcrp a");
+          const dateElement = job.querySelector(
+            ".custom-styled_cardJobTime__ZvAIb span"
+          );
+          const descriptionElement = job.querySelector(".job-description");
 
-        const title = titleElement ? titleElement.textContent.trim() : "N/A";
-        const company = companyElement ? companyElement.textContent.trim() : "N/A";
-        const salaryText = salaryElement ? salaryElement.textContent.trim() : "N/A";
-        const locationText = locationElement ? locationElement.textContent.trim() : "N/A";
-        const dateText = dateElement ? dateElement.textContent.trim() : "N/A";
-        const description = descriptionElement ? descriptionElement.textContent.trim() : "N/A";
-        const url = titleElement ? titleElement.href : "N/A";
+          const title = titleElement
+            ? titleElement.textContent.trim()
+            : "Vaga não especificada";
+          const company = companyElement
+            ? companyElement.textContent.trim()
+            : "Empresa Confidencial";
+          const salaryText = salaryElement
+            ? salaryElement.textContent.trim()
+            : null;
+          const locationText = locationElement
+            ? locationElement.textContent.trim()
+            : null;
+          const dateText = dateElement ? dateElement.textContent.trim() : null;
+          const description = descriptionElement
+            ? descriptionElement.textContent.trim()
+            : "Descrição não disponível";
+          const url = titleElement ? titleElement.href : null;
 
-        // Tenta separar cidade e estado do texto "São Paulo - SP"
-        let [city, state] = ["N/A", "N/A"];
-if (locationText.includes(" - ")) {
-  // Extract just the city and state, removing any trailing numbers/parentheses
-  const locationParts = locationText.split(" - ").map(part => part.trim());
-  city = locationParts[0];
-  // Get state abbreviation (SP) from "SP (1)" format
-  state = locationParts[1].split(" ")[0];
-} else {
-          // fallback se não tiver o padrão com " - "
-          city = locationText;
-          state = "";
-        }
-
-        return {
-          cargo: title,
-          empresa: company,
-          cidade: city,
-          estado: state,
-          descricao: description,
-          url,
-          origem: "Catho",
-          tipo: null, // pode ajustar se houver campo de tipo
-          isHomeOffice:
-            description.toLowerCase().includes("home office") ||
-            description.toLowerCase().includes("remoto"),
-          isConfidential: company.toLowerCase().includes("confidencial"),
-          // Vamos apenas retornar raw text e tratar fora do evaluate
-          salaryRaw: salaryText,
-          dateRaw: dateText,
-        };
-      });
-    });
+          return {
+            cargo: title,
+            empresa: company === "N/A" ? "Empresa Confidencial" : company,
+            cidade: searchCity,
+            estado: searchState,
+            descricao:
+              description === "N/A" ? "Descrição não disponível" : description,
+            url: url || null,
+            origem: "Catho",
+            tipo: null,
+            isHomeOffice:
+              description.toLowerCase().includes("home office") ||
+              description.toLowerCase().includes("remoto"),
+            isConfidential: company.toLowerCase().includes("confidencial"),
+            salaryRaw: salaryText,
+            dateRaw: dateText,
+          };
+        });
+      },
+      { searchCity: city, searchState: state }
+    );
 
     // Trata salário e data FORA do evaluate (no Node) usando as funções auxiliares
     const processedJobs = jobs.map((job) => {
@@ -226,20 +231,20 @@ if (locationText.includes(" - ")) {
       const data_publicacao = parseDate(job.dateRaw);
 
       return {
-        cargo: job.cargo,
-        empresa: job.empresa,
-        cidade: job.cidade,
-        estado: job.estado,
-        descricao: job.descricao,
-        url: job.url,
-        origem: job.origem,
-        tipo: job.tipo,
-        is_home_office: job.isHomeOffice,
-        is_confidential: job.isConfidential,
-        data_publicacao,
-        salario_minimo: salarioMinimo,
-        salario_maximo: salarioMaximo,
-        nivel: null, // Ajustar se quiser extrair nível
+        cargo: job.cargo || "Vaga não especificada",
+        empresa: job.empresa || "Empresa Confidencial",
+        cidade: job.cidade || "Não especificada",
+        estado: job.estado || "Não especificado",
+        descricao: job.descricao || "Descrição não disponível",
+        url: job.url || null,
+        origem: "Catho",
+        tipo: job.tipo || null,
+        is_home_office: job.isHomeOffice || false,
+        is_confidential: job.isConfidential || false,
+        data_publicacao: data_publicacao || null,
+        salario_minimo: salarioMinimo || null,
+        salario_maximo: salarioMaximo || null,
+        nivel: null,
       };
     });
 
